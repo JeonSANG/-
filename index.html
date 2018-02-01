@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    #top_div{
+        width:300px;
+        height:57px;
+        border: 3px solid black;
+    }
+    #bottom_div{
+        width:300px;
+        height:150px;
+        border-left: 3px solid black;
+        border-right: 3px solid black;
+        border-bottom: 3px solid black;
+
+        font-size: 15px;
+        font-weight:bold;
+    }
+    #inputNumber{
+        width:220px;
+        height:50px;
+        font-size: 25px;
+        text-align: right;
+        vertical-align:middle;
+    }
+
+    #Chk_Btn{
+        width:70px;
+        height:50px;
+        font-size: 30px;
+        vertical-align:middle;
+    }
+</style>
+<script>
+    function btnClick() {
+        var iptN = document.getElementById("inputNumber");
+        var b_div = document.getElementById("bottom_div");
+
+        var url = "rrnCheck.php?number=" + iptN.value;
+        var xhr = new XMLHttpRequest();
+
+        b_div.innerHTML = "";
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // 결과 입력할 객체 생성 후 결과 입력
+                b_div.innerHTML = xhr.responseText;
+                //alert(xhr.responseText);
+            }else if(xhr.readyState < 4) {}
+        };
+        xhr.open('GET', url, true);
+        xhr.send();
+    }
+
+</script>
+<body>
+    <div id="top_div">
+        <input type="text" id="inputNumber" value="941220-1728223">
+        <input type="button" id="Chk_Btn" value="확인" onclick="btnClick()">
+    </div>
+
+    <div id="bottom_div">
+        123456-1234567 남성 <br>
+        유효한 주민등록번호 입니다. <br>
+        생년월일은 12년 12월 34일 <br>
+        생일 D-day : 44일
+    </div>
+</body>
+</html>
